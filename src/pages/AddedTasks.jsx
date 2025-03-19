@@ -6,10 +6,13 @@ const AddedTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([]);
     const [statuses, setStatuses] = useState([]);
-    const [filters, setFilters] = useState({
-        selectedDepartments: [],
-        selectedPriorities: [],
-        selectedEmployee: "",
+    const [filters, setFilters] = useState(() => {
+        const savedFilters = localStorage.getItem("taskFilters");
+        return savedFilters ? JSON.parse(savedFilters) : {
+            selectedDepartments: [],
+            selectedPriorities: [],
+            selectedEmployee: "",
+        };
     });
 
     useEffect(() => {
@@ -51,9 +54,8 @@ const AddedTasks = () => {
 
     const handleFilterChange = (newFilters) => {
         setFilters(newFilters);
+        localStorage.setItem("taskFilters", JSON.stringify(newFilters)); // Save filters
     };
-
-    console.log(tasks, 'tasks');
 
     return (
         <div>

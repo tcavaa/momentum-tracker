@@ -5,13 +5,34 @@ const Filters = ({ onFilterChange }) => {
     const [departments, setDepartments] = useState([]);
     const [priorities, setPriorities] = useState([]);
     const [employees, setEmployees] = useState([]);
-    const [selectedDepartments, setSelectedDepartments] = useState([]);
-    const [selectedPriorities, setSelectedPriorities] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState("");
+    const [selectedDepartments, setSelectedDepartments] = useState(() => {
+        const savedFilters = localStorage.getItem("taskFilters");
+        return savedFilters ? JSON.parse(savedFilters).selectedDepartments || [] : [];
+    });
+    
+    const [selectedPriorities, setSelectedPriorities] = useState(() => {
+        const savedFilters = localStorage.getItem("taskFilters");
+        return savedFilters ? JSON.parse(savedFilters).selectedPriorities || [] : [];
+    });
+    
+    const [selectedEmployee, setSelectedEmployee] = useState(() => {
+        const savedFilters = localStorage.getItem("taskFilters");
+        return savedFilters ? JSON.parse(savedFilters).selectedEmployee || "" : "";
+    });
 
     const [isDeptOpen, setIsDeptOpen] = useState(false);
     const [isPriorityOpen, setIsPriorityOpen] = useState(false);
     const [isEmployeeOpen, setIsEmployeeOpen] = useState(false);
+
+    useEffect(() => {
+        const savedFilters = localStorage.getItem("taskFilters");
+        if (savedFilters) {
+            const parsedFilters = JSON.parse(savedFilters);
+            setSelectedDepartments(parsedFilters.selectedDepartments || []);
+            setSelectedPriorities(parsedFilters.selectedPriorities || []);
+            setSelectedEmployee(parsedFilters.selectedEmployee || "");
+        }
+    }, []);
 
     useEffect(() => {
         async function fetchData() {
@@ -55,19 +76,28 @@ const Filters = ({ onFilterChange }) => {
         setSelectedDepartments([]);
         setSelectedPriorities([]);
         setSelectedEmployee("");
+    
+        // Reset localStorage
+        localStorage.setItem("taskFilters", JSON.stringify({
+            selectedDepartments: [],
+            selectedPriorities: [],
+            selectedEmployee: "",
+        }));
     };
 
     useEffect(() => {
+        const newFilters = { selectedDepartments, selectedPriorities, selectedEmployee };
+
+        // Update filters in parent component
         if (typeof onFilterChange === "function") {
-            onFilterChange({
-                selectedDepartments,
-                selectedPriorities,
-                selectedEmployee
-            });
-        } else {
-            console.warn("onFilterChange is not a function");
+            onFilterChange(newFilters);
         }
+
+        // Save filters to localStorage
+        localStorage.setItem("taskFilters", JSON.stringify(newFilters));
     }, [selectedDepartments, selectedPriorities, selectedEmployee]);
+
+    console.log(localStorage);
 
     return (
         <div className="filters">

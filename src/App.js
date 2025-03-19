@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Addedtasks from './pages/AddedTasks';
-//import TaskCreation from './pages/TaskCreation';
-//import TaskDetails from './pages/TaskDetails';
+import TaskInnerPage from './pages/TaskInnerPage';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Addedtasks />} />
-        
+        <Route path="/tasks/:taskId" element={<TaskInnerPage />} />
       </Routes>
     </Router>
   );

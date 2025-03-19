@@ -22,6 +22,33 @@ const API = {
         });
         return response.data;
       },
+      updateTaskStatus: async (taskId, statusId) => {
+        const response = await axios.put(
+            `${API_URL}/tasks/${taskId}`,
+            { status_id: statusId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    accept: "application/json",
+                },
+            }
+        );
+        return response.data;
+      },
+      fetchComments: async (taskId) => {
+        const response = await axios.get(`${API_URL}/tasks/${taskId}/comments`, {
+            headers: { Authorization: `Bearer ${token}`, accept: "application/json" }
+        });
+        return response.data;
+      },
+      addComment: async (taskId, text, parentId = null) => {
+        const response = await axios.post(
+            `${API_URL}/tasks/${taskId}/comments`,
+            { text, parent_id: parentId },
+            { headers: { Authorization: `Bearer ${token}`, accept: "application/json" } }
+        );
+        return response.data;
+    },
      fetchEmployees: async () => {
       const response = await axios.get(
         `${API_URL}/employees`,

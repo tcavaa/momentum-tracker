@@ -1,0 +1,92 @@
+.task-inner {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.comments-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+    padding: 10px;
+    border-left: 3px solid #ddd;
+    background: #f4f4f4;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.nickname {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-text {
+    margin: 5px 0;
+}
+
+.reply-btn {
+    font-size: 12px;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.reply-btn:hover {
+    text-decoration: underline;
+}
+
+.reply-input {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.reply-input input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reply-input button {
+    padding: 5px 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reply-input button:hover {
+    background: #0056b3;
+}
+
+.sub-comments {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
+}
