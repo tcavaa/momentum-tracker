@@ -35,6 +35,14 @@ const API = {
         );
         return response.data;
       },
+      createTask: async (taskData) => {
+        const response = await axios.post(
+            `${API_URL}/tasks`,
+            taskData,
+            { headers: { Authorization: `Bearer ${token}`, accept: "application/json" } }
+        );
+        return response.data;
+    },
       fetchComments: async (taskId) => {
         const response = await axios.get(`${API_URL}/tasks/${taskId}/comments`, {
             headers: { Authorization: `Bearer ${token}`, accept: "application/json" }
@@ -93,6 +101,26 @@ const API = {
       }
     );
     return response.data;
-  }
+  },
+  addEmployee: async (employeeData) => {
+    const formData = new FormData();
+    formData.append("name", employeeData.name);
+    formData.append("surname", employeeData.last_name);
+    formData.append("avatar", employeeData.avatar);
+    formData.append("department_id", employeeData.department_id);
+
+    const response = await axios.post(
+        `${API_URL}/employees`,
+        formData,
+        { 
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+                Accept: "application/json"
+            } 
+        }
+    );
+    return response.data;
+  },
 };
 export default API;
