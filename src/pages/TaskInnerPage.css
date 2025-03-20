@@ -1,58 +1,283 @@
 .task-inner {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width:1680px;
+    padding:40px 120px;
+    margin:0 auto;
+    display: flex;
+    justify-content: space-between;
 }
+.task-innder-header {
+    display: flex;
+    gap:18px;
+}
+.task-inner-details {
+    width:715px;
+}
+.task-inner-details h1 {
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#212529;
+}
+p.task-inner-desc {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color:#000000;
+    margin-top:26px;
+}
+.task-inner-dets {
+    margin-top:73px;
+    width:493px;
+}
+.task-inner-dets h2 {
+    font-family: FiraGO;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#2A2A2A;
+}
+.innerDetsStatus {
+    margin:23px 0;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.innerDetsStatus select {
+    width: 260px;
+    padding: 14px;
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    position: relative;
+    padding-right: 36px;
+    margin-top:3px;
+}
+
+.innerDetsStatus select::-ms-expand {
+    display: none;
+}
+
+.innerDetsStatus::after {
+    content: "▾";
+    font-size: 20px;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+}
+.innerDetsStatus p {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color:#474747;
+    background-image: url('../assets/pie-chart.png');
+    background-repeat: no-repeat;
+    padding-left:35px;
+}
+.innerDetsEmpl {
+    margin:23px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.innerDetsEmpl p.inerdetP {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color:#474747;
+    background-image: url('../assets/user.png');
+    background-repeat: no-repeat;
+    padding-left:35px;
+}
+.innerEmpl {
+    display: flex;
+    justify-content: space-between;
+    width:260px;
+    margin-top:10px;
+}
+.innerEmpl img {
+    width:32px;
+    height:32px;
+    border-radius: 50px;
+}
+.innerinnerEmpl {
+    width:220px;
+}
+.innerinnerEmpl span {
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0%;
+    color:#474747;
+}
+.innerinnerEmpl p {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0%;
+    color:#0D0F10;
+    margin-top:5px;
+}
+.innerDetsDate {
+    margin:23px 0;
+    display: flex;
+}
+.innerDetsDate p.forInnDDIcon {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color:#474747;
+    background-image: url('../assets/calendar.png');
+    background-repeat: no-repeat;
+    padding-left:35px;
+}
+.innerDetsDate p.dateDate {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color:#0D0F10;
+    margin-top:20px;
+    margin-left:50px;
+}
+.LOADING {
+    text-align: center;
+}
+
 
 .comments-section {
-    margin-top: 20px;
-    padding: 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+   width:651px;
+   background:rgba(248, 243, 254, 0.65);
+   border-radius:10px;
+   border:0.3px solid #DDD2FF;
+   padding:40px 45px;
+   margin-top:70px;
 }
-
+.add-comment {
+    position: relative;
+}
+.add-comment textarea {
+    width:611px;
+    height:135px;
+    padding:18px 20px;
+    border:0.3px solid #ADB5BD;
+    border-radius:10px;
+    resize: none;
+    font-family: FiraGO;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#898989;
+    
+}
+.add-comment button {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#FFFFFF;
+    text-align:center;
+    padding:8px 18.5px;
+    border-radius:20px;
+    background-color:#8338EC;
+    border:none;
+    position:absolute;
+    bottom:20px;
+    right:20px;
+}
+.CommentsTitle h3 {
+    font-family: FiraGO;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#000000;
+}
+.CommentsTitle {
+    display:flex;
+    gap:7px;
+    margin-bottom:40px;
+}
+.CommentsTitle p {
+    padding:4px 11px;
+    border-radius:30px;
+    background-color:#8338EC;
+    color:#FFFFFF;
+}
 .comment {
-    padding: 10px;
-    border-left: 3px solid #ddd;
-    background: #f4f4f4;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     position: relative;
 }
 
 .comment-header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
+    width: 38px;
+    height: 38px;
+    border-radius: 40px;
 }
 
 .nickname {
-    font-weight: bold;
-    color: #333;
+    font-family: FiraGO;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#212529;
 }
 
 .comment-text {
-    margin: 5px 0;
+    font-family: FiraGO;
+    font-weight: 350;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;
+    margin:8px 0 0 50px;
 }
 
 .reply-btn {
+    font-family: FiraGO;
+    font-weight: 400;
     font-size: 12px;
-    color: #007bff;
+    line-height: 100%;
+    letter-spacing: 0%;
+    padding-left:20px;
+    color: #8338EC;
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 10px;
+    margin:15px 0 0 50px;
+    background-image: url('../assets/reply.png');
+    background-repeat: no-repeat;
 }
 
 .reply-btn:hover {
@@ -86,7 +311,7 @@
 }
 
 .sub-comments {
-    margin-left: 20px;
+    margin-left: 40px;
     padding-left: 10px;
-    border-left: 2px solid #ddd;
+    margin-top:10px;
 }

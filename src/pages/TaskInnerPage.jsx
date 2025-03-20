@@ -14,7 +14,7 @@ const Comment = ({ comment, handleReplyClick, replyingTo, setReplyText, handleAd
 
             {comment.parent_id === null && (
                 <button className="reply-btn" onClick={() => handleReplyClick(comment.id)}>
-                    Reply
+                    უპასუხე
                 </button>
             )}
 
@@ -26,7 +26,7 @@ const Comment = ({ comment, handleReplyClick, replyingTo, setReplyText, handleAd
                         onChange={(e) => setReplyText(e.target.value)}
                         placeholder="Write a reply..."
                     />
-                    <button onClick={() => handleAddReply(comment.id)}>Reply</button>
+                    <button onClick={() => handleAddReply(comment.id)}>უპასუხე</button>
                 </div>
             )}
 
@@ -126,26 +126,73 @@ const TaskInnerPage = () => {
         }
     };
 
-    if (!task) return <p>Loading...</p>;
+    const formatDate = (dateString) => {
+        const days = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
+        const date = new Date(dateString);
+        
+        const dayOfWeek = days[date.getDay()];
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+    
+        return `${dayOfWeek} - ${day}/${month}/${year}`;
+    };
+
+    if (!task) return <p className="LOADING">იტვირთება...</p>;
 
     return (
         <div className="task-inner">
-            <h1>{task.name}</h1>
-            <p>{task.description}</p>
-            <p><strong>Priority:</strong> {task.priority.name}</p>
-             <p><strong>Status:</strong></p>
-            <select value={task.status.id} onChange={handleStatusChange}>
-                {statuses.map(status => (
-                    <option key={status.id} value={status.id}>{status.name}</option>
-                ))}
-            </select>
-
-            <p><strong>Department:</strong> {task.department.name}</p>
-            <p><strong>Assigned To:</strong> {task.employee.name} {task.employee.lastName}</p>
-            <p><strong>Due Date:</strong> {task.dueDate}</p>
-
+            <div className="task-inner-details">
+                <div className="task-innder-header">
+                    <span className={`task-priority priority${task.priority.id}`}>
+                        {task.priority.name}
+                    </span>
+                    <span className="task-department">{task.department.name.split(" ")[0]}</span>
+                </div>
+                <h1>{task.name}</h1>
+                <p className="task-inner-desc">{task.description}</p>
+                <div className="task-inner-dets">
+                    <h2>დავალების დეტალები</h2>
+                    <div className="innerDetsStatus">
+                        <p>სტატუსი</p>
+                        <select value={task.status.id} onChange={handleStatusChange}>
+                            {statuses.map(status => (
+                                <option key={status.id} value={status.id}>{status.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="innerDetsEmpl">
+                        <p className="inerdetP">თანამშრომელი</p>
+                        <div className="innerEmpl">
+                            <img alt={task.employee.name} src={task.employee.avatar}/>
+                            <div className="innerinnerEmpl">
+                                <span>{task.department.name}</span>
+                                <p>{task.employee.name} {task.employee.surname}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="innerDetsDate">
+                        <p className="forInnDDIcon">დავალებების ვადა</p>
+                        <p className="dateDate">{formatDate(task.due_date)}</p>
+                    </div>
+                </div>
+            </div>
             <div className="comments-section">
-                <h3>Comments</h3>
+                <div className="add-comment">
+                    <textarea
+                        type="text"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="დაწერე კომენტარი"
+                    >
+                    </textarea>
+                    <button onClick={handleAddComment}>დააკომენტარე</button>
+                </div>
+                <div className="CommentsTitle">
+                    <h3>კომენტარები</h3>
+                    <p>{comments.length}</p>
+                </div>
+                
                 {comments.length > 0 ? (
                     comments.map(comment => (
                         <Comment
@@ -159,18 +206,10 @@ const TaskInnerPage = () => {
                         />
                     ))
                 ) : (
-                    <p>No comments yet.</p>
+                    <p>ჯერ კომენტარი არ დაწერილა.</p>
                 )}
 
-                <div className="add-comment">
-                    <input
-                        type="text"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Add a comment..."
-                    />
-                    <button onClick={handleAddComment}>Post</button>
-                </div>
+                
             </div>
         </div>
     );

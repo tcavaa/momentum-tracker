@@ -87,23 +87,25 @@ const AddedTasks = () => {
                         {filteredTasks
                             .filter(task => task.status.id === status.id)
                             .map(task => (
-                                <div key={task.id} className={`task-card StatusBorder${status.id}`}>
-                                    <div className="task-header">
-                                        <span className={`task-priority priority${task.priority.id}`}>
-                                            {task.priority.name}
-                                        </span>
-                                        <span className="task-department">{task.department.name.split(" ")[0]}</span>
-                                        <span className="task-date">{formatDate(task.due_date)}</span>
+                                <a href={`tasks/${task.id}`} className="task-card-awrap">
+                                    <div key={task.id} className={`task-card StatusBorder${status.id}`}>
+                                        <div className="task-header">
+                                            <span className={`task-priority priority${task.priority.id}`}>
+                                                {task.priority.name}
+                                            </span>
+                                            <span className="task-department">{task.department.name.split(" ")[0]}</span>
+                                            <span className="task-date">{formatDate(task.due_date)}</span>
+                                        </div>
+                                        <div className="task-content">
+                                            <h3>{task.name}</h3>
+                                            <p>{task.description.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
+                                        </div>
+                                        <div className="task-footer">
+                                            <img src={task.employee.avatar} alt={task.employee.name}/>
+                                            <span>{task.total_comments}</span>
+                                        </div>
                                     </div>
-                                    <div className="task-content">
-                                        <h3>{task.name}</h3>
-                                        <p>{task.description.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
-                                    </div>
-                                    <div className="task-footer">
-                                        <img src={task.employee.avatar}/>
-                                        <span>{task.total_comments}</span>
-                                    </div>
-                                </div>
+                                </a>
                             ))}
                     </div>
                 ))}

@@ -49,6 +49,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.task-card-awrap {
+    text-decoration: none;
+}
 .StatusBorder1 {
     border-color:#F7BC30;
 }
