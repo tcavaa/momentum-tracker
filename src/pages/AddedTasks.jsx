@@ -58,6 +58,20 @@ const AddedTasks = () => {
         localStorage.setItem("taskFilters", JSON.stringify(newFilters));
     };
 
+    const formatDate = (dateString) => {
+        const months = [
+            "იანვ", "თებ", "მარ", "აპრ", "მაი", "ივნ",
+            "ივლ", "აგვ", "სექ", "ოქტ", "ნოე", "დეკ"
+        ];
+    
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+    
+        return `${day} ${month}, ${year}`;
+    };
+
     
 
     return (
@@ -69,17 +83,26 @@ const AddedTasks = () => {
             <div className="task-columns">
                 {statuses.map(status => (
                     <div key={status.id} className="task-column">
-                        <h2>{status.name}</h2>
+                        <h2 className={`StatusTitles StatusTitles${status.id}`}>{status.name}</h2>
                         {filteredTasks
                             .filter(task => task.status.id === status.id)
                             .map(task => (
-                                <div key={task.id} className="task-card">
-                                    <h3>{task.name}</h3>
-                                    <p>{task.description.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
-                                    <span>Priority: {task.priority.name}</span>
-                                    <span>Due: {task.dueDate}</span>
-                                    <span>Department: {task.department.name}</span>
-                                    <img src={task.employee.avatar} alt={`${task.employee.firstName} ${task.employee.lastName}`} />
+                                <div key={task.id} className={`task-card StatusBorder${status.id}`}>
+                                    <div className="task-header">
+                                        <span className={`task-priority priority${task.priority.id}`}>
+                                            {task.priority.name}
+                                        </span>
+                                        <span className="task-department">{task.department.name.split(" ")[0]}</span>
+                                        <span className="task-date">{formatDate(task.due_date)}</span>
+                                    </div>
+                                    <div className="task-content">
+                                        <h3>{task.name}</h3>
+                                        <p>{task.description.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
+                                    </div>
+                                    <div className="task-footer">
+                                        <img src={task.employee.avatar}/>
+                                        <span>{task.total_comments}</span>
+                                    </div>
                                 </div>
                             ))}
                     </div>
