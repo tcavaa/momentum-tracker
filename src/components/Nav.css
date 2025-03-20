@@ -1,0 +1,47 @@
+nav {
+    width:1680px;
+    height:100px;
+    padding:0 120px;
+    display:flex;
+    justify-content: space-between;
+
+}
+nav .logo {
+    display:block;
+    background-image: url('../assets/logo.png');
+    background-repeat: no-repeat;
+    width:210px;
+    height:38px;
+    margin-top:31px;
+}
+nav ul {
+    display: flex;
+}
+nav ul li {
+    margin-top:30px;
+    list-style: none;
+}
+nav ul li button {
+    color:#212529;
+    font-size:16px;
+    font-weight: 400;
+    text-align: center;
+    border:1px solid #8338EC;
+    border-radius:5px;
+    background:none;
+    padding:8px 18px;
+    margin-top:-10px;
+    
+}
+nav ul li a {
+    border-radius:5px;
+    background:#8338EC;
+    padding:10px 20px;
+    color:#FFFFFF;
+    text-decoration: none;
+    font-size:16px;
+    font-weight: 400;
+    text-align: center;
+    margin-left:40px;
+    margin-top:30px;
+}
