@@ -12,14 +12,12 @@ const Comment = ({ comment, handleReplyClick, replyingTo, setReplyText, handleAd
             </div>
             <p className="comment-text">{comment.text}</p>
 
-            {/* Reply Button (only for top-level comments) */}
             {comment.parent_id === null && (
                 <button className="reply-btn" onClick={() => handleReplyClick(comment.id)}>
                     Reply
                 </button>
             )}
 
-            {/* Reply Input */}
             {replyingTo === comment.id && (
                 <div className="reply-input">
                     <input
@@ -32,7 +30,6 @@ const Comment = ({ comment, handleReplyClick, replyingTo, setReplyText, handleAd
                 </div>
             )}
 
-            {/* Render Sub-Comments (Replies) */}
             {comment.sub_comments && comment.sub_comments.length > 0 && (
                 <div className="sub-comments">
                     {comment.sub_comments.map(subComment => (
@@ -57,7 +54,6 @@ const TaskInnerPage = () => {
     const [newComment, setNewComment] = useState("");
     const [statuses, setStatuses] = useState([]);
 
-    // Replying State
     const [replyingTo, setReplyingTo] = useState(null);
     const [replyText, setReplyText] = useState("");
 
@@ -111,10 +107,8 @@ const TaskInnerPage = () => {
         if (!replyText.trim()) return;
     
         try {
-            // Send reply to API
             const addedReply = await API.addComment(taskId, replyText, parentId);
     
-            // Update comments state correctly
             setComments(comments.map(comment => {
                 if (comment.id === parentId) {
                     return {
@@ -139,7 +133,6 @@ const TaskInnerPage = () => {
             <h1>{task.name}</h1>
             <p>{task.description}</p>
             <p><strong>Priority:</strong> {task.priority.name}</p>
-             {/* Status Dropdown */}
              <p><strong>Status:</strong></p>
             <select value={task.status.id} onChange={handleStatusChange}>
                 {statuses.map(status => (
@@ -151,7 +144,6 @@ const TaskInnerPage = () => {
             <p><strong>Assigned To:</strong> {task.employee.name} {task.employee.lastName}</p>
             <p><strong>Due Date:</strong> {task.dueDate}</p>
 
-            {/* Comments Section */}
             <div className="comments-section">
                 <h3>Comments</h3>
                 {comments.length > 0 ? (
@@ -170,7 +162,6 @@ const TaskInnerPage = () => {
                     <p>No comments yet.</p>
                 )}
 
-                {/* Add Comment */}
                 <div className="add-comment">
                     <input
                         type="text"

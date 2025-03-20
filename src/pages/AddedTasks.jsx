@@ -54,7 +54,7 @@ const AddedTasks = () => {
 
     const handleFilterChange = (newFilters) => {
         setFilters(newFilters);
-        localStorage.setItem("taskFilters", JSON.stringify(newFilters)); // Save filters
+        localStorage.setItem("taskFilters", JSON.stringify(newFilters));
     };
 
     return (

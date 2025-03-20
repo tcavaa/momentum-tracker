@@ -67,7 +67,6 @@ const Filters = ({ onFilterChange }) => {
         setSelectedEmployee(prev => (prev === id ? null : id));
     };
 
-    // Remove the selected employee
     const clearEmployee = () => {
         setSelectedEmployee("");
     };
@@ -77,7 +76,6 @@ const Filters = ({ onFilterChange }) => {
         setSelectedPriorities([]);
         setSelectedEmployee("");
     
-        // Reset localStorage
         localStorage.setItem("taskFilters", JSON.stringify({
             selectedDepartments: [],
             selectedPriorities: [],
@@ -88,12 +86,10 @@ const Filters = ({ onFilterChange }) => {
     useEffect(() => {
         const newFilters = { selectedDepartments, selectedPriorities, selectedEmployee };
 
-        // Update filters in parent component
         if (typeof onFilterChange === "function") {
             onFilterChange(newFilters);
         }
 
-        // Save filters to localStorage
         localStorage.setItem("taskFilters", JSON.stringify(newFilters));
     }, [selectedDepartments, selectedPriorities, selectedEmployee]);
 
