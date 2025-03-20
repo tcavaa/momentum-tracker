@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
 import Filters from "../components/Filters";
+import './AddedTasks.css';
 
 const AddedTasks = () => {
     const [tasks, setTasks] = useState([]);
@@ -57,9 +58,11 @@ const AddedTasks = () => {
         localStorage.setItem("taskFilters", JSON.stringify(newFilters));
     };
 
+    
+
     return (
-        <div>
-            <h1>დავალებების გვერდი</h1>
+        <div className="Content">
+            <h1 className="AddedTasksTitle">დავალებების გვერდი</h1>
 
             <Filters onFilterChange={handleFilterChange} />
 

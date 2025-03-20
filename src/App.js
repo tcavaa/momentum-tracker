@@ -3,7 +3,6 @@ import Addedtasks from './pages/AddedTasks';
 import TaskInnerPage from './pages/TaskInnerPage';
 import NewTask from './pages/NewTask';
 import Nav from './components/Nav';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {

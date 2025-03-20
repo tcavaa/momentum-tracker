@@ -200,7 +200,6 @@ const AddEmployeeModal = ({ isOpen, onClose, onEmployeeAdded }) => {
                             }>
                                 ✓მაქსიმუმ 600kb ზომაში
                             </p>
-                        {errors.avatar && <p className="error">{errors.avatar}</p>}
                     </div>
                     <div className="departmentsContainer">
                     <label>დეპარტამენტი*</label>

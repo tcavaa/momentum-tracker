@@ -1,0 +1,158 @@
+.filters {
+    display: flex;
+    border:1px solid #DEE2E6;
+    border-radius:10px;
+    width:608px;
+    margin-top:42px;
+    position: relative;
+}
+.filters label.forIcons {
+    display:block;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    background-image: url('../assets/dropdownicon.png');   
+    background-repeat: no-repeat;
+    padding:12.5px 65px 12.5px 18px;
+    background-position-x: calc(100% - 10px);
+    background-position-y: center; 
+}
+.filters label.forIcons:hover {
+    background-image: url('../assets/dropdowniconhover.png');  
+    background-position-x: calc(100% - 15px);
+    color:#8338EC;
+}
+.dropdown {
+    position: absolute;
+    top:50px;
+    left:0;
+    width:548px;
+    background-color: white;
+    border: 0.5px solid #8338EC;
+    padding:40px 30px 20px 30px;
+    border-radius:10px;
+    z-index: 1000;
+}
+.filterInputs {
+    padding:11px 0;
+    display: flex;
+    cursor: pointer;
+}
+.filterInputs span{
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    display: block;
+}
+.custom-checkbox {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 22px; 
+    height: 22px;
+    display: inline-block;
+    border: 1.5px solid #212529;
+    border-radius: 6px; 
+    position: relative;
+    margin-right:15px;
+}
+
+.custom-checkbox input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 5px;
+    border: solid #333;
+    border-width: 0 0 2px 2px;
+    transform: translate(-50%, -60%) rotate(-45deg);
+}
+
+.filterInputsEmp {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.filterInputsEmp:hover {
+    background-color: #f5f5f5;
+}
+.filterInputsEmpSelected {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+
+.filterInputsEmp .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.filterChoose {
+    float:right;
+    margin-top:25px;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:white;
+    padding:8px 49.5px;
+    border:none;
+    border-radius:20px;
+    background-color:#8338EC;
+}
+.selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top:25px;
+}
+.selected-filters div {
+    display: flex;
+    justify-content: space-between;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    padding:6px 18px 6px 10px;
+    color:#343A40;
+    border-radius:43px;
+    border:1px solid #CED4DA;
+}
+.selected-filters div button {
+    background:none;
+    border:none;
+}
+.clear-filters {
+    background:none;
+    border:none;
+    padding:6px 10px;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}

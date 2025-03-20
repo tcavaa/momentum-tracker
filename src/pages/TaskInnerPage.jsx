@@ -80,7 +80,7 @@ const TaskInnerPage = () => {
 
         try {
             await API.updateTaskStatus(taskId, newStatusId);
-            setTask({ ...task, status: statuses.find(s => s.id === newStatusId) }); // Update UI
+            setTask({ ...task, status: statuses.find(s => s.id === newStatusId) });
         } catch (error) {
             console.error("Error updating status:", error);
         }

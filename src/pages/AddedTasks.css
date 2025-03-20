@@ -1,0 +1,15 @@
+.Content {
+    width:1680px;
+    padding:40px 120px;
+    margin:0 auto;
+}
+.AddedTasksTitle {
+    font-family: FiraGO;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+.task-columns {
+    margin-top:24px;
+}

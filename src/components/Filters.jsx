@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
+import './Filters.css';
 
 const Filters = ({ onFilterChange }) => {
     const [departments, setDepartments] = useState([]);
@@ -33,6 +34,19 @@ const Filters = ({ onFilterChange }) => {
             setSelectedEmployee(parsedFilters.selectedEmployee || "");
         }
     }, []);
+
+    const toggleDropdown = (dropdown) => {
+        setIsDeptOpen(dropdown === "dept" ? !isDeptOpen : false);
+        setIsPriorityOpen(dropdown === "priority" ? !isPriorityOpen : false);
+        setIsEmployeeOpen(dropdown === "employee" ? !isEmployeeOpen : false);
+    };
+
+    const closeAllDropdowns = () => {
+        setIsDeptOpen(false);
+        setIsPriorityOpen(false);
+        setIsEmployeeOpen(false);
+    };
+
 
     useEffect(() => {
         async function fetchData() {
@@ -91,106 +105,121 @@ const Filters = ({ onFilterChange }) => {
         }
 
         localStorage.setItem("taskFilters", JSON.stringify(newFilters));
+        // eslint-disable-next-line
     }, [selectedDepartments, selectedPriorities, selectedEmployee]);
 
     console.log(localStorage);
 
     return (
+        <div>
         <div className="filters">
             <div>
-                <label onClick={() => setIsDeptOpen(!isDeptOpen)}>
-                    დეპარტამენტი:
+                <label className="forIcons" onClick={() => toggleDropdown("dept")}>
+                    დეპარტამენტი
                 </label>
                 {isDeptOpen && (
                     <div className="dropdown">
                     {departments.map(dept => (
-                        <div key={dept.id}>
-                            <input
-                                type="checkbox"
-                                checked={selectedDepartments.includes(dept.id)}
-                                onChange={() => toggleDepartment(dept.id)}
-                            />
-                            <span>{dept.name}</span>
+                        <div className="filterInputs" key={dept.id}>
+                            <label class="custom-checkbox">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedDepartments.includes(dept.id)}
+                                    onChange={() => toggleDepartment(dept.id)}
+                                />
+                                <span class="checkmark"></span>
+                                <span>{dept.name}</span>
+                            </label>
+                            
                         </div>
                     ))}
+                    <button className="filterChoose" onClick={closeAllDropdowns}>არჩევა</button>
                 </div>
                 )}
             </div>
 
             <div>
-                <label onClick={() => setIsPriorityOpen(!isPriorityOpen)}>
-                    პრიორიტეტი:
+                <label className="forIcons" onClick={() => toggleDropdown("priority")}>
+                    პრიორიტეტი
                 </label>
                 {isPriorityOpen && (
                     <div className="dropdown">
                         {priorities.map(priority => (
-                            <div key={priority.id}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedPriorities.includes(priority.id)}
-                                    onChange={() => togglePriority(priority.id)}
-                                />
-                                <span>{priority.name}</span>
+                            <div className="filterInputs" key={priority.id}>
+                                <label class="custom-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedPriorities.includes(priority.id)}
+                                        onChange={() => togglePriority(priority.id)}
+                                    />
+                                    <span class="checkmark"></span>
+                                    <span>{priority.name}</span>
+                                 </label>
                             </div>
                         ))}
+                        <button className="filterChoose" onClick={closeAllDropdowns}>არჩევა</button>
                     </div>
                 )}
             </div>
 
             <div>
-                <label onClick={() => setIsEmployeeOpen(!isEmployeeOpen)}>
-                    თანამშრომელი:
+                <label className="forIcons" onClick={() => toggleDropdown("employee")}>
+                    თანამშრომელი
                 </label>
                 {isEmployeeOpen && (
                     <div className="dropdown">
                         {employees.map(emp => (
-                            <div key={emp.id}>
-                                <input
-                                    type="radio"
-                                    name="employee"
-                                    checked={selectedEmployee === emp.id}
-                                    onChange={() => selectEmployee(emp.id)}
-                                />
-                                <span>{emp.name}</span>
+                            <div cclassName={`filterInputsEmp ${selectedEmployee === emp.id ? 'filterInputsEmpSelected' : ''}`} key={emp.id}>
+                                <div 
+                                    key={emp.id} 
+                                    className={`filterInputsEmp ${selectedEmployee === emp.id ? 'filterInputsEmpSelected' : ''}`}
+                                    onClick={() => selectEmployee(emp.id)}
+                                >
+                                    <img src={emp.avatar} alt={emp.name} className="avatar" />
+                                    <span>{emp.name} {emp.surname}</span>
+                                </div>
                             </div>
                         ))}
+                        <button className="filterChoose" onClick={closeAllDropdowns}>არჩევა</button>
                     </div>
                 )}
             </div>
 
-            <div className="selected-filters">
-                {selectedDepartments.map(deptId => {
-                    const dept = departments.find(d => d.id === deptId);
-                    return dept ? (
-                        <span key={dept.id} className="filter-tag">
-                            {dept.name} <button onClick={() => toggleDepartment(dept.id)}>✖</button>
-                        </span>
-                    ) : null;
-                })}
-
-                {selectedPriorities.map(priId => {
-                    const priority = priorities.find(p => p.id === priId);
-                    return priority ? (
-                        <span key={priority.id} className="filter-tag">
-                            {priority.name} <button onClick={() => togglePriority(priority.id)}>✖</button>
-                        </span>
-                    ) : null;
-                })}
-
-                {selectedEmployee && (
-                    <span className="filter-tag">
-                        {employees.find(emp => emp.id === selectedEmployee)?.name || "Selected Employee"}
-                        <button onClick={clearEmployee}>✖</button>
-                    </span>
-                )}
-            </div>
-
-            {(selectedDepartments.length > 0 || selectedPriorities.length > 0 || selectedEmployee) && (
-                <button className="clear-filters" onClick={clearAllFilters}>
-                    გასუფთავება
-                </button>
-            )}
+            
         </div>
+        <div className="selected-filters">
+        {selectedDepartments.map(deptId => {
+            const dept = departments.find(d => d.id === deptId);
+            return dept ? (
+                <div key={dept.id} className="filter-tag">
+                    <span>{dept.name}</span> <button onClick={() => toggleDepartment(dept.id)}>x</button>
+                </div>
+            ) : null;
+        })}
+
+        {selectedPriorities.map(priId => {
+            const priority = priorities.find(p => p.id === priId);
+            return priority ? (
+                <div key={priority.id} className="filter-tag">
+                    <span>{priority.name}</span> <button onClick={() => togglePriority(priority.id)}>x</button>
+                </div>
+            ) : null;
+        })}
+
+        {selectedEmployee && (
+            <div className="filter-tag">
+                <span>{employees.find(emp => emp.id === selectedEmployee)?.name || "Selected Employee"}</span>
+                <button onClick={clearEmployee}>x</button>
+            </div>
+        )}
+
+        {(selectedDepartments.length > 0 || selectedPriorities.length > 0 || selectedEmployee) && (
+            <button className="clear-filters" onClick={clearAllFilters}>
+                გასუფთავება
+            </button>
+        )}
+    </div>
+    </div>
     );
 };
 

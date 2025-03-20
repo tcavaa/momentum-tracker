@@ -4,6 +4,7 @@ nav {
     padding:0 120px;
     display:flex;
     justify-content: space-between;
+    margin:0 auto;
 
 }
 nav .logo {
