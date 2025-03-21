@@ -1,0 +1,345 @@
+.task-form {
+    width:1680px;
+    padding:40px 120px;
+    margin:0 auto;
+}
+.task-form h1 {
+    font-family: FiraGO;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#212529;
+    padding:0;
+    margin:0;
+}
+.task-form form {
+    width: 1570px;
+    padding:65px 55px;
+    border:0.3px solid #DDD2FF;
+    background-color:rgba(251, 249, 255, 0.65);
+    border-radius:4px;
+    margin-top:30px;
+    display: flex;
+    gap:161px;
+}
+.titlesContainer {
+    display: flex;
+    flex-direction: column;
+}
+.titlesContainer label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+.titlesContainer input{
+    color:black;
+    width: 530px;
+    height: 22px;
+    border-radius: 6px;
+    border-width: 1px;
+    padding: 10px;
+    border:1px solid rgba(206, 212, 218, 1);
+    margin-top:6px;
+}
+.descContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top:55px;
+}
+.descContainer label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;    
+}
+.descContainer textarea{
+    color:black;
+    width: 530px;
+    height: 113px;
+    border-radius: 6px;
+    border-width: 1px;
+    padding: 10px;
+    border:1px solid rgba(206, 212, 218, 1);
+    margin-top:6px;
+    resize: none;
+}
+
+.task-form form .dropdown-container {
+    position: relative;
+    width: 200px;
+  }
+  
+.task-form form .dropdown-container .dropdown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    width:239px;
+    margin-top:-20px;
+  }
+  
+  .selected-priority {
+    font-size: 16px;
+  }
+  .selected-priority img{
+    margin-right:10px;
+  }
+  .arrow {
+    font-size: 14px;
+  }
+  
+  .task-form form .dropdown-container .dropdown-menu {
+    position: absolute;
+    width: 259px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    top:70px;
+    margin-top: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index:1;
+  }
+  
+  .task-form form .dropdown-container .dropdown-menu  .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .task-form form .dropdown-container .dropdown-menu  .dropdown-item img {
+    margin-right:5px;
+  }
+  
+  .task-form form .dropdown-container .dropdown-menu .dropdown-item:hover {
+    background: #f5f5f5;
+  }
+  .selectsContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .selectsContainer .dropdown-container label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;
+  }
+  .selectsContainer .dropdown-container .dropdown {
+    z-index: 1;
+  }
+  .AddTaskStatus {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .AddTaskStatus label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;   
+    margin-top:5px; 
+  }
+  .AddTaskStatus select {
+    width: 259px;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    
+    padding-right: 40px;
+    margin-top:9px;
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    
+}
+
+.AddTaskStatus select::-ms-expand {
+    display: none;
+}
+
+.AddTaskStatus::after {
+    content: "▾";
+    font-size: 20px;
+    position: absolute;
+    bottom: 0px;
+    right:20px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+}
+.AddTaskDeparment {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top:-9px;
+  }
+  .AddTaskDeparment label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;   
+    margin-top:5px; 
+  }
+  .AddTaskDeparment select {
+    width: 522px;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    
+    padding-right: 40px;
+    margin-top:9px;
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    
+}
+
+.AddTaskDeparment select::-ms-expand {
+    display: none;
+}
+
+.AddTaskDeparment::after {
+    content: "▾";
+    font-size: 20px;
+    position: absolute;
+    bottom: 0px;
+    right:20px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+}
+.AddTaskEmployee {
+    margin-top:100px;
+}
+
+.AddTaskEmployee label {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;
+}
+.disabledLabel {
+    color:#ADB5BD !important;
+}
+.AddTaskDateDue {
+    
+    margin-top:155px;
+}
+.AddTaskDateDue label {
+    display: block;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#343A40;
+}
+.AddTaskDateDue input {
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -1.25%;
+    color:#ADB5BD;
+    width:240px;
+    padding:5px 14px;
+    border:1px solid #DEE2E6;
+    border-radius:5px;
+    margin-top:6px;
+}
+.AddTaskSubmitBtn {
+    background-color: #8338EC;
+    color:#FFFFFF;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    float: right;
+    margin-top:145px;
+}
+
+.AddTaskEmployee .dropdown-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid #DEE2E6;
+    cursor: pointer;
+    border-radius:5px;
+    margin-top:6px;
+}
+
+.AddTaskEmployee .dropdown-container.disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.AddTaskEmployee .dropdown-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.AddTaskEmployee .dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+.AddEmpInSelect {
+    background:none;
+    border:none;
+    background-image: url('../assets/add.png');
+    background-repeat: no-repeat;
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#8338EC;
+    padding-left:25px;
+    cursor: pointer;
+}
+.insideSelectNames {
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color:#0D0F10;
+}

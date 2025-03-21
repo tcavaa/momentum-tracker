@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
 import AddEmployeeModal from "../components/AddEmployeeModal";
+import './NewTask.css';
 
 const NewTask = () => {
     const navigate = useNavigate();
@@ -9,11 +10,14 @@ const NewTask = () => {
     const [title, setTitle] = useState(localStorage.getItem("taskTitle") || "");
     const [description, setDescription] = useState(localStorage.getItem("taskDescription") || "");
     const [priority, setPriority] = useState(localStorage.getItem("taskPriority") || "Medium");
-    const [status, setStatus] = useState(localStorage.getItem("taskStatus") || "Starting");
+    const [status, setStatus] = useState(localStorage.getItem("taskStatus") || "1");
     const [department, setDepartment] = useState(localStorage.getItem("taskDepartment") || "");
     const [responsible, setResponsible] = useState(localStorage.getItem("taskResponsible") || "");
     const [deadline, setDeadline] = useState(localStorage.getItem("taskDeadline") || getTomorrowDate());
+    const [isEmployeeDropdownOpen, setIsEmployeeDropdownOpen] = useState(false);
 
+    const [selectedPriority, setSelectedPriority] = useState({id: 2, name: "საშუალო", icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Medium.svg"});
+    const [isOpen, setIsOpen] = useState(false);
     const [isEmployeeModalOpen, setIsEmployeeModalOpen] = useState(false);
 
     const [priorities, setPriorities] = useState([]);
@@ -44,6 +48,16 @@ const NewTask = () => {
                 setStatuses(statusData);
                 setDepartments(departmentData);
                 setAllEmployees(employeeData);
+
+                const storedPriority = localStorage.getItem("taskPriority");
+            if (storedPriority) {
+                setSelectedPriority(JSON.parse(storedPriority));
+                setPriority(JSON.parse(storedPriority).id);
+            }
+            const storedResponsible = localStorage.getItem("taskResponsible");
+            if (storedResponsible) {
+                setResponsible(storedResponsible);
+            }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -69,6 +83,15 @@ const NewTask = () => {
             console.error("Failed to fetch employees:", error);
         }
     };
+
+    const handleSelect = (priority) => {
+        setSelectedPriority(priority);
+        setIsOpen(false);
+        setPriority(priority.id); // Update priority state as well
+        localStorage.setItem("taskPriority", JSON.stringify(priority));
+      };
+
+      
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -155,82 +178,160 @@ const NewTask = () => {
             due_date: deadline,
             status_id: Number(status),
             employee_id: Number(responsible),
-            priority_id: Number(priority),
+            priority_id: Number(selectedPriority.id),
         };
     
         try {
             await API.createTask(taskData);
-            localStorage.removeItem("taskForm");
+            localStorage.removeItem("taskTitle");
+            localStorage.removeItem("taskDescription");
+            localStorage.removeItem("taskPriority");
+            localStorage.removeItem("taskStatus");
+            localStorage.removeItem("taskDepartment");
+            localStorage.removeItem("taskResponsible");
+            localStorage.removeItem("taskDeadline");
             navigate("/");
         } catch (error) {
             console.error("Task creation failed:", error);
         }
     };
-
+    console.log(errors);
     return (
-       
-        <div className="task-form">
-            <h1>ახალი დავალება</h1>
-            <form onSubmit={handleSubmit}>
-            
-
-            <label>სათაური:</label>
-            <input type="text" name="title" value={title} onChange={handleChange} />
-            {errors.title && <span className="error">{errors.title}</span>}
-
-            <label>აღწერა:</label>
-            <textarea name="description" value={description} onChange={handleChange} />
-            {errors.description && <span className="error">{errors.description}</span>}
-
-            <label>პრიორიტეტი:</label>
-            <select name="priority" value={priority} onChange={handleChange}>
-                {priorities.map((pri) => (
-                    <option key={pri.id} value={pri.id}>{pri.name}</option>
-                ))}
-            </select>
-            {errors.priority && <span className="error">{errors.priority}</span>}
-
-            <label>სტატუსი:</label>
-            <select name="status" value={status} onChange={handleChange}>
-                {statuses.map((stat) => (
-                    <option key={stat.id} value={stat.id}>{stat.name}</option>
-                ))}
-            </select>
-            {errors.status && <span className="error">{errors.status}</span>}
-
-            <label>დეპარტამენტი:</label>
-            <select name="department" value={department} onChange={handleChange}>
-                <option value="">აირჩიეთ დეპარტამენტი</option>
-                {departments.map((dept) => (
-                    <option key={dept.id} value={dept.id}>{dept.name}</option>
-                ))}
-            </select>
-            {errors.department && <span className="error">{errors.department}</span>}
-
-            {department && (
-                <>
-                    <label>პასუხისმგებელი თანამშრომელი:</label>
-                    <select name="responsible" value={responsible} onChange={(e) => setResponsible(e.target.value)}>
-                        <option value="">აირჩიეთ თანამშრომელი</option>
-                        {filteredEmployees.map((emp) => (
-                            <option key={emp.id} value={emp.id}>
-                                {emp.name} {emp.lastName}
-                            </option>
-                        ))}
-                    </select>
-                </>
-            )}
-
-            <label>ვადა:</label>
-            <input type="date" name="deadline" value={deadline} onChange={handleChange} min={getTomorrowDate()} />
-            {errors.deadline && <span className="error">{errors.deadline}</span>}
-
-            <button type="submit" disabled={!isValid}>შექმნა</button>
-            </form>
-            <button onClick={() => setIsEmployeeModalOpen(true)}>თანამშრომლის დამატება</button>
+        <div>
             <AddEmployeeModal onEmployeeAdded={handleEmployeeAdded} isOpen={isEmployeeModalOpen} onClose={() => setIsEmployeeModalOpen(false)} />
+            <div className="task-form">
+                <h1>შექმენი ახალი დავალება</h1>
+                <form onSubmit={handleSubmit}>
+                <div>
+                    <div className="titlesContainer">
+                        <label>სათაური*</label>
+                        <input type="text" name="title" value={title} onChange={handleChange} />
+                        <p className={
+                            !title ? "error" : errors.title ? "error errorRed" : "error errorGreen"
+                        }>
+                            ✓მინიმუმ 2 სიმბოლო<br/>
+                            ✓მაქსიმუმ 255 სიმბოლო
+                        </p>
+                    </div>
+                    <div className="descContainer">
+                        <label>აღწერა*</label>
+                        <textarea name="description" value={description} onChange={handleChange} />
+                        <p className={
+                            !description ? "error" : errors.description ? "error errorRed" : "error errorGreen"
+                        }>
+                            ✓მინიმუმ 2 სიმბოლო<br/>
+                            ✓მაქსიმუმ 255 სიმბოლო
+                        </p>
+                    </div>
+                    <div className="selectsContainer">
+                        <div className="dropdown-container">
+                            <label>პრიორიტეტი*</label>
+                            <div className="dropdown" onClick={() => setIsOpen(!isOpen)}>
+                                <span className="selected-priority">
+                                {selectedPriority ? (
+                                    <>
+                                        <img src={selectedPriority.icon} alt="priority icon" />
+                                        {selectedPriority.name}
+                                    </>
+                                    ) : "აირჩიე პრიორიტეტი"}
+                                </span>
+                                <span className="arrow">▼</span>
+                            </div>
+
+                            {isOpen && (
+                                <div className="dropdown-menu">
+                                {priorities.map((pri) => (
+                                    <label key={pri.id} className="dropdown-item">
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedPriority?.id === pri.id}
+                                        onChange={() => handleSelect(pri)}
+                                        hidden
+                                        value={pri.id}
+                                    />
+                                    <img alt="" src={pri.icon}/> {pri.name}
+                                    </label>
+                                ))}
+                                </div>
+                            )}
+                        </div>
+                        <div className="AddTaskStatus">
+                            <label>სტატუსი*</label>
+                            <select name="status" value={status} onChange={handleChange}>
+                                {statuses.map((stat) => (
+                                    <option key={stat.id} value={stat.id}>{stat.name}</option>
+                                ))}
+                            </select>
+                            {errors.status && <span className="error">{errors.status}</span>}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="AddTaskDeparment">
+                        <label>დეპარტამენტი*</label>
+                        <select className={errors.department ? "errorBorderRed" : ""} name="department" value={department} onChange={handleChange}>
+                            <option value="">აირჩიეთ დეპარტამენტი</option>
+                            {departments.map((dept) => (
+                                <option key={dept.id} value={dept.id}>{dept.name}</option>
+                            ))}
+                        </select>
+                        {errors.department && <span className="error">{errors.department}</span>}
+                    </div>
+                    <div className="AddTaskEmployee">
+                        <label className={`${!department ? "disabledLabel" : ""}`}>პასუხისმგებელი თანამშრომელი:</label>
+                        <div className={`dropdown-container ${!department ? "disabled" : ""}`} onClick={() => department && setIsEmployeeDropdownOpen(!isEmployeeDropdownOpen)}>
+                            <span className="dropdown-selected">
+                            {responsible ? (
+                                <span>
+                                    <img 
+                                        src={filteredEmployees.find(emp => emp.id === Number(responsible))?.avatar} 
+                                        alt="Employee Avatar" 
+                                        style={{ width: "30px", height: "30px", borderRadius: "50%", marginRight: "8px" }} 
+                                    />
+                                    {filteredEmployees.find(emp => emp.id === Number(responsible))?.name}{" "}
+                                    {filteredEmployees.find(emp => emp.id === Number(responsible))?.surname}
+                                </span>
+                            ) : "აირჩიეთ თანამშრომელი"}
+                            </span>
+                            <span className="arrow">▼</span>
+                        </div>
+
+                        {isEmployeeDropdownOpen && department && (
+                            <div className="dropdown-menu">
+                                <label className="dropdown-item">
+                                    <button className="AddEmpInSelect" onClick={() => setIsEmployeeModalOpen(true)}>თანამშრომლის დამატება</button>
+                                </label>
+                                {filteredEmployees.map((emp) => (
+                                    <label key={emp.id} className="dropdown-item">
+                                        <input
+                                            type="radio"
+                                            name="responsible"
+                                            value={emp.id}
+                                            checked={responsible === Number(emp.id)}
+                                            onChange={handleChange}
+                                            hidden
+                                        />
+                                        <img 
+                                        src={emp.avatar} 
+                                        alt="Employee Avatar" 
+                                        style={{ width: "30px", height: "30px", borderRadius: "50%", marginRight: "8px" }} 
+                                    />
+                                        <p className="insideSelectNames">{emp.name} {emp.surname}</p>
+                                    </label>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="AddTaskDateDue">
+                        <label>დედლაინი:</label>
+                        <input className={errors.deadline ? "errorBorderRed" : ""} type="date" name="deadline" value={deadline} onChange={handleChange} min={getTomorrowDate()} />
+                    </div>
+                    <button type="submit" className="AddTaskSubmitBtn" disabled={!isValid}>დავალების შექმნა</button>
+                </div>
+                    
+                </form>
+            </div>
         </div>
-        
         
     );
 };
