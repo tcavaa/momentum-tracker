@@ -98,7 +98,7 @@ const AddedTasks = () => {
                                         </div>
                                         <div className="task-content">
                                             <h3>{task.name}</h3>
-                                            <p>{task.description.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
+                                            <p>{task?.description?.length > 100 ? task.description.substring(0, 100) + "..." : task.description}</p>
                                         </div>
                                         <div className="task-footer">
                                             <img src={task.employee.avatar} alt={task.employee.name}/>
